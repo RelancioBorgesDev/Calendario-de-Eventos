@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Calendar } from "./components/ui/calendar";
 import { ptBR } from "date-fns/locale";
 import {
@@ -8,13 +8,23 @@ import {
 } from "./components/ui/resizable";
 import { Separator } from "./components/ui/separator";
 import ScheduledPost from "./components/scheduled-post";
+import DayEvent from "./components/day-event";
 
 function App() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const [formattedDate, setFormattedDate] = useState<string>("");
 
   useEffect(() => {
     if (date) {
-      console.log("Aparecer os Eventos");
+      const options: Intl.DateTimeFormatOptions = {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      };
+
+      const formattedDateString = date.toLocaleDateString("pt-BR", options);
+
+      setFormattedDate(formattedDateString);
     }
   }, [date]);
   return (
@@ -66,8 +76,15 @@ function App() {
         </ResizablePanel>
         <ResizableHandle />
 
-        <ResizablePanel defaultSize={20} className="w-1/5 ">
-          Conteudo 3
+        <ResizablePanel defaultSize={20} className="w-1/5 bg-gray-200">
+          <aside className="flex flex-col gap-8 py-16 px-4 items-center">
+            <h1 className="text-3xl font-medium">{formattedDate}</h1>
+            <section className="flex flex-col gap-8">
+              <DayEvent />
+              <DayEvent />
+              <DayEvent />
+            </section>
+          </aside>
         </ResizablePanel>
       </ResizablePanelGroup>
     </>
