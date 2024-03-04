@@ -9,6 +9,7 @@ import {
 import { Separator } from "./components/ui/separator";
 import ScheduledPost from "./components/scheduled-post";
 import DayEvent from "./components/day-event";
+import Header from "./components/header";
 
 function App() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
@@ -29,7 +30,8 @@ function App() {
   }, [date]);
   return (
     <>
-      <ResizablePanelGroup direction="horizontal" className="w-full h-screen">
+      <Header />
+      <ResizablePanelGroup direction="horizontal" className="w-full ">
         <ResizablePanel defaultSize={15} className="w-1/5 bg-slate-950 ">
           <aside className="">
             <header className="flex items-center flex-col py-4 gap-4">
@@ -76,7 +78,7 @@ function App() {
         </ResizablePanel>
         <ResizableHandle />
 
-        <ResizablePanel defaultSize={20} className="w-1/5 bg-gray-200">
+        <ResizablePanel defaultSize={20} className="w-1/5 bg-gray-100">
           <aside className="flex flex-col gap-8 py-16 px-4 items-center">
             <h1 className="text-3xl font-medium">{formattedDate}</h1>
             <section className="flex flex-col gap-8">
